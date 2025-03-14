@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://c05lxgegcismg"]
+
+[ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="1_5tlkr"]
+[ext_resource type="Script" path="res://scenes/unit/unit.gd" id="1_8howk"]
+[ext_resource type="Resource" uid="uid://cl26b1aghpine" path="res://data/units/bjorn.tres" id="2_mh2jm"]
+[ext_resource type="Script" path="res://components/drag_and_drop.gd" id="4_8hyx1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n35vl"]
+size = Vector2(36, 36)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mryru"]
+bg_color = Color(0.231373, 0.113725, 0.0980392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up76u"]
+bg_color = Color(0, 0.733333, 0.313726, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.231373, 0.113725, 0.0980392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1w8ne"]
+bg_color = Color(0.231373, 0.113725, 0.0980392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6p2h"]
+bg_color = Color(3.65794e-06, 0.631199, 0.974029, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.231373, 0.113725, 0.0980392, 1)
+
+[node name="Unit" type="Area2D"]
+script = ExtResource("1_8howk")
+stats = ExtResource("2_mh2jm")
+
+[node name="Skin" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("1_5tlkr")
+region_enabled = true
+region_rect = Rect2(32, 96, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_n35vl")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = 1.0
+offset_top = -12.0
+offset_right = 31.0
+offset_bottom = -6.0
+theme_override_styles/background = SubResource("StyleBoxFlat_mryru")
+theme_override_styles/fill = SubResource("StyleBoxFlat_up76u")
+value = 20.0
+show_percentage = false
+
+[node name="ManaBar" type="ProgressBar" parent="."]
+offset_left = 1.0
+offset_top = -7.0
+offset_right = 31.0
+offset_bottom = -3.0
+theme_override_styles/background = SubResource("StyleBoxFlat_1w8ne")
+theme_override_styles/fill = SubResource("StyleBoxFlat_c6p2h")
+value = 70.0
+show_percentage = false
+
+[node name="DragAndDrop" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("4_8hyx1")
+target = NodePath("..")
